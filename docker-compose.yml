@@ -1,0 +1,77 @@
+version: '3.9'
+
+networks:
+  phpguy-docker.network:
+    driver: bridge
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+    container_name: phpguy-docker.nginx
+    restart: always
+    tty: true
+    ports:
+      - 8080:80
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - mysql
+      - php 
+    networks:
+      - phpguy-docker.network
+  mysql:
+    image: mysql:8
+    container_name: phpguy-docker.mysql
+    networks:
+      - phpguy-docker.network
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=development
+    volumes:
+      - "./mysql/config/mysql.cnf:/etc/mysql/conf.d/custom.cnf:ro"
+      - "./mysql/dbdata:/var/lib/mysql"
+    cap_add:
+      - SYS_NICE
+  phpmyadmin:
+    image: library/phpmyadmin
+    container_name: phpguy-docker.phpmyadmin
+    tty: true
+    networks:
+      - phpguy-docker.network
+    depends_on:
+      - mysql
+    environment:
+      PMA_USER: root
+      PMA_PASSWORD: root
+      PMA_HOSTS: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    ports:
+      - 8081:80
+  php:
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    restart: always
+    tty: true
+    container_name: phpguy-docker.php
+    networks:
+      - phpguy-docker.network
+    ports:
+      - 9000:9000
+    volumes:
+      - ./src:/var/www/html
+  composer:
+    build:
+      context: .
+      dockerfile: composer.dockerfile
+    container_name: phpguy-docker.composer
+    volumes:
+      - ./src:/var/www/html
+    working_dir: /var/www/html
+

@@ -1,0 +1,6 @@
+FROM composer:2
+
+ENV COMPOSERUSER=phpguy
+ENV COMPOSERGROUP=phpguy
+
+RUN adduser -g ${COMPOSERGROUP} -s /bin/sh -D ${COMPOSERUSER}
