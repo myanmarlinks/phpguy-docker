@@ -23,6 +23,7 @@ services:
       - phpguy-docker.network
   mysql:
     image: mysql:8
+    restart: always
     container_name: phpguy-docker.mysql
     networks:
       - phpguy-docker.network
