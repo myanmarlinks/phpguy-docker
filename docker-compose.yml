@@ -35,6 +35,7 @@ services:
     volumes:
       - "./mysql/config/mysql.cnf:/etc/mysql/conf.d/custom.cnf:ro"
       - "./mysql/dbdata:/var/lib/mysql"
+      - "./mysql/sample:/data"
     cap_add:
       - SYS_NICE
   phpmyadmin:
