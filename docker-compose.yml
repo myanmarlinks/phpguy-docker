@@ -46,6 +46,7 @@ services:
     networks:
       - phpguy-docker.network
     depends_on:
+      - php
       - mysql
     environment:
       PMA_USER: root
