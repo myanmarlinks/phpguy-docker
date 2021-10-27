@@ -1,7 +1,7 @@
 version: '3.9'
 
 networks:
-  phpguy-docker.network:
+  ${DOCKER_NAME}.network:
     driver: bridge
 
 services:
@@ -9,7 +9,7 @@ services:
     build:
       context: .
       dockerfile: nginx.dockerfile
-    container_name: phpguy-docker.nginx
+    container_name: ${DOCKER_NAME}.nginx
     restart: always
     tty: true
     ports:
@@ -20,13 +20,13 @@ services:
       - mysql
       - php 
     networks:
-      - phpguy-docker.network
+      - ${DOCKER_NAME}.network
   mysql:
     image: mysql:8
     restart: always
-    container_name: phpguy-docker.mysql
+    container_name: ${DOCKER_NAME}.mysql
     networks:
-      - phpguy-docker.network
+      - ${DOCKER_NAME}.network
     ports:
       - 3306:3306
     environment:
@@ -41,10 +41,10 @@ services:
       - SYS_NICE
   phpmyadmin:
     image: library/phpmyadmin
-    container_name: phpguy-docker.phpmyadmin
+    container_name: ${DOCKER_NAME}.phpmyadmin
     tty: true
     networks:
-      - phpguy-docker.network
+      - ${DOCKER_NAME}.network
     depends_on:
       - php
       - mysql
@@ -62,9 +62,9 @@ services:
       dockerfile: php.dockerfile
     restart: always
     tty: true
-    container_name: phpguy-docker.php
+    container_name: ${DOCKER_NAME}.php
     networks:
-      - phpguy-docker.network
+      - ${DOCKER_NAME}.network
     ports:
       - 9000:9000
     volumes:
@@ -73,7 +73,7 @@ services:
     build:
       context: .
       dockerfile: composer.dockerfile
-    container_name: phpguy-docker.composer
+    container_name: ${DOCKER_NAME}.composer
     volumes:
       - ./src:/var/www/html
     working_dir: /var/www/html
