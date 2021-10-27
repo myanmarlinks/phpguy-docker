@@ -1,7 +1,7 @@
 version: '3.9'
 
 networks:
-  ${DOCKER_NAME}.network:
+  main.network:
     driver: bridge
 
 services:
@@ -20,13 +20,13 @@ services:
       - mysql
       - php 
     networks:
-      - ${DOCKER_NAME}.network
+      - main.network
   mysql:
     image: mysql:8
     restart: always
     container_name: ${DOCKER_NAME}.mysql
     networks:
-      - ${DOCKER_NAME}.network
+      - main.network
     ports:
       - 3306:3306
     environment:
@@ -44,7 +44,7 @@ services:
     container_name: ${DOCKER_NAME}.phpmyadmin
     tty: true
     networks:
-      - ${DOCKER_NAME}.network
+      - main.network
     depends_on:
       - php
       - mysql
@@ -64,7 +64,7 @@ services:
     tty: true
     container_name: ${DOCKER_NAME}.php
     networks:
-      - ${DOCKER_NAME}.network
+      - main.network
     ports:
       - 9000:9000
     volumes:
