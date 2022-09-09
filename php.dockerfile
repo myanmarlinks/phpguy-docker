@@ -32,7 +32,6 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 # Install php dependencies
 RUN docker-php-ext-install \
   -j$(nproc) gd \
-  iconv \
   bcmath \
   xml \
   soap \
@@ -41,17 +40,13 @@ RUN docker-php-ext-install \
   pdo_mysql \
   pdo_pgsql \
   mysqli \
-  zip \
-  opcache \
   intl \
   xsl \
-  exif \
-  soap
+  exif
 
 # Install pecl
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN pecl -v install redis && docker-php-ext-enable redis
-RUN pecl -v install rar && docker-php-ext-enable rar
 
 # Copy PHP Settings
 # COPY ./php/conf.d ${PHP_INI_DIR}/conf.d
