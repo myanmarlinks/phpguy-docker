@@ -2,8 +2,8 @@
 
 docker နဲ့ docker-compose မသွင်းရသေးဘူးဆိုရင် သွင်းဖို့လိုပါတယ်။
 
-- [Instalar Docker](https://docs.docker.com/install/)
-- [Instalar Docker Compose](https://docs.docker.com/compose/install/)
+- [Installer Docker](https://docs.docker.com/install/)
+- [Installer Docker Compose](https://docs.docker.com/compose/install/)
 
 docker နဲ့ docker-composer install လုပ်ပြီးပြီဆိုရင် `docker-compose.yml` ဖိုင်ရှိတဲ့ နေရာကနေ အောက်ပါ command ကို run ပါ။
 
