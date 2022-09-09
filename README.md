@@ -8,7 +8,8 @@ docker နဲ့ docker-compose မသွင်းရသေးဘူးဆို
 docker နဲ့ docker-composer install လုပ်ပြီးပြီဆိုရင် `docker-compose.yml` ဖိုင်ရှိတဲ့ နေရာကနေ အောက်ပါ command ကို run ပါ။
 
 ```bash
-docker-compose up -d
+docker compose build
+docker composer up
 ```
 **-d** means it will run in the background and your terminal will not be locked and to kill the process just
 press `CTRL + C` on windows or `Command + C` on mac.
